@@ -47,7 +47,7 @@ int main() {
     printf("Enter the knapsack capacity: ");
     scanf("%d", &capacity);
 
-    struct Item items[n];
+    struct Item *items = malloc(n * sizeof(struct Item)); // Dynamically allocate array
 
     printf("Enter the weight and value of each item:\n");
     for (int i = 0; i < n; i++) {
@@ -56,5 +56,6 @@ int main() {
 
     knapsack(items, n, capacity);
 
+    free(items); // Free allocated memory
     return 0;
 }

@@ -1,25 +1,39 @@
 import random
-def password_generator(pw_len):
+
+def password_generator(password_lengths):
     data_string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$^&**_"
     passwords_list = [] 
-    for i in pw_len:
-        password = '' 
-        for j in range(i):
-            nxt_ind = random.randrange(len(data_string))
-            password = password + data_string[nxt_ind]
+    
+    for length in password_lengths:
+        password = ''.join(random.choice(data_string) for _ in range(length))
         passwords_list.append(password) 
+        
     return passwords_list
- 
-n = int(input("Number of passwords to generate:"))
-print('Generating',n,'PASSWORDS')
-passwordLengths = []
-for i in range(n):
-    print('NOTE==>Minimum length of password is 6!')
-    length = int(input('Enter the length of password' + str(i+1) + ':'))
-    if length<6:
-        length = 6
-        print(' ')
-    passwordLengths.append(length)
-Password = password_generator(passwordLengths)
-for i in range(n):
-    print('Password',i+1,'=',Password[i])
+
+def main():
+    n = int(input("Number of passwords to generate: "))
+    print('Generating', n, 'PASSWORDS')
+    
+    password_lengths = []
+    
+    for i in range(n):
+        print('NOTE==> Minimum length of password is 6!')
+        while True:
+            try:
+                length = int(input(f'Enter the length of password {i + 1}: '))
+                if length < 6:
+                    print('Length too short. Setting length to 6.')
+                    length = 6
+                password_lengths.append(length)
+                break
+            except ValueError:
+                print("Invalid input. Please enter a number.")
+    
+    passwords = password_generator(password_lengths)
+    
+    for i in range(n):
+        print(f'Password {i + 1} = {passwords[i]}')
+
+if __name__ == "__main__":
+    main()
+

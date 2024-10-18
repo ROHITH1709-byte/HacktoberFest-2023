@@ -27,3 +27,5 @@ class Ball(Turtle):
         """Reset the ball to the center of the screen and reverse its x direction."""
         self.goto(0, 0)
         self.bounce_x()  # Ensure the ball moves in the opposite direction after reset
+
+    

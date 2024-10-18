@@ -3,18 +3,20 @@ import matplotlib.pyplot as plt
 
 # Function to check if a list is sorted
 def is_sorted(arr):
+    """Check if the array is sorted in ascending order."""
     return all(arr[i] <= arr[i + 1] for i in range(len(arr) - 1))
 
 # Function to perform Bogosort and visualize the progress
 def bogosort(arr):
+    """Perform Bogosort and return the sorted array, total steps, and sorted steps data."""
     steps = 0  # Count the number of steps
     sorted_steps = []  # To store the number of elements in sorted order at each step
 
     while not is_sorted(arr):
-        random.shuffle(arr)
-        steps += 1
-        sorted_count = sum(arr[i] <= arr[i + 1] for i in range(len(arr) - 1))
-        sorted_steps.append(sorted_count)
+        random.shuffle(arr)  # Shuffle the array randomly
+        steps += 1  # Increment step count
+        sorted_count = sum(arr[i] <= arr[i + 1] for i in range(len(arr) - 1))  # Count sorted pairs
+        sorted_steps.append(sorted_count)  # Track the progress
 
     return arr, steps, sorted_steps
 
@@ -33,5 +35,6 @@ plt.title('Bogosort Progress')
 plt.grid(True)
 plt.show()
 
+# Print the results
 print(f'Sorted List: {sorted_list}')
 print(f'Total Steps: {total_steps}')

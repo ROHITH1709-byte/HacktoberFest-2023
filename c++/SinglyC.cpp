@@ -2,57 +2,47 @@
 using namespace std;
 
 template<class T>
-struct node
-{
+struct node {
     T iNo;
-    struct node *next;
-};
-
-// typedef struct node NODE;
-// typedef struct node *PNODE;
-
-template<class T>
-class SinglyC
-{
-    private:
-        int iSize;
-        node <T> *Head;
-        node <T> *Tail;
-
-    public: 
-        SinglyC();
-        void InsertFirst(T);
-        void InsertLast(T);
-        void InsertAtPos(int, T);
-        void DeleteFirst();
-        void DeleteLast();
-        void DeleteAtPos(int);
-        void Display();
-        int Count();
+    struct node* next;
 };
 
 template<class T>
-SinglyC <T> ::SinglyC()
-{
-    Head = NULL;
-    Tail = NULL;
+class SinglyC {
+private:
+    int iSize;
+    node<T>* Head;
+    node<T>* Tail;
+
+public:
+    SinglyC();
+    void InsertFirst(T);
+    void InsertLast(T);
+    void InsertAtPos(int, T);
+    void DeleteFirst();
+    void DeleteLast();
+    void DeleteAtPos(int);
+    void Display();
+    int Count();
+};
+
+template<class T>
+SinglyC<T>::SinglyC() {
+    Head = nullptr;
+    Tail = nullptr;
     iSize = 0;
 }
 
 template<class T>
-void SinglyC <T> ::InsertFirst(T iNo)
-{
-    node  <T> *newn = new node <T>;
+void SinglyC<T>::InsertFirst(T iNo) {
+    node<T>* newn = new node<T>;
     newn->iNo = iNo;
-    newn->next = NULL;
+    newn->next = nullptr;
 
-    if (Head == NULL && Tail == NULL)
-    {
+    if (Head == nullptr && Tail == nullptr) {
         Head = newn;
         Tail = newn;
-    }
-    else
-    {
+    } else {
         newn->next = Head;
         Head = newn;
     }
@@ -61,19 +51,15 @@ void SinglyC <T> ::InsertFirst(T iNo)
 }
 
 template<class T>
-void SinglyC <T> ::InsertLast(T iNo)
-{
-    node <T> *newn = new node <T>;
+void SinglyC<T>::InsertLast(T iNo) {
+    node<T>* newn = new node<T>;
     newn->iNo = iNo;
-    newn->next = NULL;
+    newn->next = nullptr;
 
-    if (Head == NULL && Tail == NULL)
-    {
+    if (Head == nullptr && Tail == nullptr) {
         Head = newn;
         Tail = newn;
-    }
-    else
-    {
+    } else {
         Tail->next = newn;
         Tail = newn;
     }
@@ -82,30 +68,21 @@ void SinglyC <T> ::InsertLast(T iNo)
 }
 
 template<class T>
-void SinglyC <T> ::InsertAtPos(int iPos, T iNo)
-{
-    if (iPos > (iSize + 1) || iPos < 1)
-    {
-        cout << "Unable to insert an element ! Please Give Valid Position !" << endl;
+void SinglyC<T>::InsertAtPos(int iPos, T iNo) {
+    if (iPos < 1 || iPos > (iSize + 1)) {
+        cout << "Unable to insert an element! Please provide a valid position!" << endl;
         return;
-    }
-    else if (iPos == (iSize + 1))
-    {
-        InsertLast(iNo);
-    }
-    else if (iPos == 1)
-    {
+    } else if (iPos == 1) {
         InsertFirst(iNo);
-    }
-    else
-    {
-        node <T> *temp = Head;
-        node <T> *newn = new node <T>;
+    } else if (iPos == (iSize + 1)) {
+        InsertLast(iNo);
+    } else {
+        node<T>* newn = new node<T>;
         newn->iNo = iNo;
-        newn->next = NULL;
+        newn->next = nullptr;
 
-        for (int i = 1; i < iPos - 1; i++)
-        {
+        node<T>* temp = Head;
+        for (int i = 1; i < iPos - 1; i++) {
             temp = temp->next;
         }
 
@@ -113,122 +90,90 @@ void SinglyC <T> ::InsertAtPos(int iPos, T iNo)
         temp->next = newn;
         iSize++;
     }
-    Tail->next = Head;
 }
 
 template<class T>
-void SinglyC <T> ::DeleteFirst()
-{
-    if (Head == NULL && Tail == NULL)
-    {
-        cout << "No Elements found to delete from the linked list !" << endl;
+void SinglyC<T>::DeleteFirst() {
+    if (Head == nullptr) {
+        cout << "No elements found to delete from the linked list!" << endl;
         return;
-    }
-    else if (Head == Tail)
-    {
-        Head = NULL;
-        Tail = NULL;
-    }
-    else
-    {
-        node <T> *temp = Head;
+    } else if (Head == Tail) {
+        delete Head;
+        Head = nullptr;
+        Tail = nullptr;
+    } else {
+        node<T>* temp = Head;
         Head = Head->next;
-        delete (temp);
+        delete temp;
     }
     Tail->next = Head;
     iSize--;
 }
 
 template<class T>
-void SinglyC <T> ::DeleteLast()
-{
-    if (Head == NULL && Tail == NULL)
-    {
-        cout << "No Elments Ware found to delete from the linked list !" << endl;
+void SinglyC<T>::DeleteLast() {
+    if (Head == nullptr) {
+        cout << "No elements found to delete from the linked list!" << endl;
         return;
-    }
-    else if (Head == Tail)
-    {
-        Head = NULL;
-        Tail = NULL;
-    }
-    else
-    {
-        node <T> *temp = Head;
-        while (temp->next->next != NULL)
-        {
+    } else if (Head == Tail) {
+        delete Head;
+        Head = nullptr;
+        Tail = nullptr;
+    } else {
+        node<T>* temp = Head;
+        while (temp->next != Tail) {
             temp = temp->next;
         }
-
+        delete Tail;
         Tail = temp;
-        delete (temp->next);
+        Tail->next = Head;
     }
-    Tail->next = Head;
     iSize--;
 }
 
 template<class T>
-void SinglyC <T> ::DeleteAtPos(int iPos)
-{
-    if (iPos > iSize || iPos < 1)
-    {
-        cout << "Unable to delete an element ! Please Give Valid Position !" << endl;
+void SinglyC<T>::DeleteAtPos(int iPos) {
+    if (iPos < 1 || iPos > iSize) {
+        cout << "Unable to delete an element! Please provide a valid position!" << endl;
         return;
-    }
-    else if (iPos == iSize)
-    {
-        DeleteLast();
-    }
-    else if (iPos == 1)
-    {
+    } else if (iPos == 1) {
         DeleteFirst();
-    }
-    else
-    {
-        node <T> *temp = Head;
-        for (int i = 1; i < iPos - 1; i++)
-        {
+    } else if (iPos == iSize) {
+        DeleteLast();
+    } else {
+        node<T>* temp = Head;
+        for (int i = 1; i < iPos - 1; i++) {
             temp = temp->next;
         }
-
-        node <T> *temp1 = temp->next->next;
-        delete (temp->next);
-        temp->next = temp1;
+        node<T>* temp1 = temp->next;
+        temp->next = temp1->next;
+        delete temp1;
     }
-    Tail->next = Head;
     iSize--;
 }
 
 template<class T>
-void SinglyC <T> ::Display()
-{
-    node <T> *temp = Head;
+void SinglyC<T>::Display() {
+    node<T>* temp = Head;
 
-    if (temp == NULL && Tail == NULL)
-    {
-        cout << "NULL" << endl;
+    if (temp == nullptr) {
+        cout << "List is empty" << endl;
         return;
-    }
-    else
-    {
-        do
-        {
+    } else {
+        do {
             cout << "|" << temp->iNo << "|->";
             temp = temp->next;
-        } while (temp != Tail->next);
+        } while (temp != Head);
         cout << "NULL" << endl;
     }
 }
 
 template<class T>
-int SinglyC <T> :: Count()
-{
+int SinglyC<T>::Count() {
     return iSize;
 }
 
-
-int main()
-{
+int main() {
     SinglyC<int> lobj;
 
     lobj.InsertFirst(1);
@@ -243,9 +188,9 @@ int main()
     lobj.InsertLast(-2);
     lobj.Display();
 
-    cout << "The total number of elements present in the linked list: -" << lobj.Count() << endl;
+    cout << "The total number of elements present in the linked list: " << lobj.Count() << endl;
 
-    lobj.InsertAtPos(10, 2);
+    lobj.InsertAtPos(2, 10);  // Corrected the position
     lobj.Display();
 
     lobj.DeleteFirst();
@@ -254,7 +199,7 @@ int main()
     lobj.DeleteLast();
     lobj.Display();
 
-    lobj.DeleteAtPos(6);
+    lobj.DeleteAtPos(6);  // Will give error as there are only 6 elements now
     lobj.Display();
 
     return 0;

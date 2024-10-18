@@ -1,66 +1,64 @@
-#Write a menu driven program to implement Stack in Python using List
-def isempty(stk):
-    if stk==[]:
-        return True
-    else:
-        return False
+def is_empty(stk):
+    return len(stk) == 0
 
-def push(stk,item):
+def push(stk, item):
     stk.append(item)
-    top=len(stk)-1
-    
+
 def pop(stk):
-    if isempty(stk):
+    if is_empty(stk):
         return 'Underflow'
-    else:
-        item=stk.pop()
-        if len(stk)==0:
-            top=None
-        else:
-            top=len(stk)-1
-        return item    
+    return stk.pop()
 
 def peek(stk):
-    if isempty(stk):
+    if is_empty(stk):
         return "Underflow"
-    else:
-        top=len(stk)-1
-        return(stk[top])
+    return stk[-1]
 
 def display(stk):
-    if isempty(stk):
+    if is_empty(stk):
         print("Stack is empty")
     else:
-        for i in range(len(stk)-1,-1,-1):
-            print(stk[i])
+        print("Stack elements (top to bottom):")
+        for item in reversed(stk):
+            print(item)
 
-stk=[]
-top=None
-while True:
-    print("Stack Operation:","\n1.Push","\n2.Pop","\n3.Peek","\n4.Display","\n5.Exit")
-    ch=int(input("Enter your choice(1-5):"))
-    if ch==1:
-        item=int(input("Enter item"))
-        push(stk,item)
-    elif ch==2:
-        item=pop(stk)
-        if item=='Underflow':
-            print("Stack is empty")
-        else:
-            print("popped item is",item)
-    elif ch==3:
-        item=peek(stk)
-        if item=="Underflow":
-            print("Stack is empty")
-        else:
-            print("Topmost item is ",item)
-    elif ch==4:
-        display(stk)
-    elif ch==5:
-        break
-    else:
-        print("Invalid Choice")
-    
-        
-    
-    
+def main():
+    stk = []
+    while True:
+        print("\nStack Operation:")
+        print("1. Push")
+        print("2. Pop")
+        print("3. Peek")
+        print("4. Display")
+        print("5. Exit")
+
+        try:
+            ch = int(input("Enter your choice (1-5): "))
+            if ch == 1:
+                item = int(input("Enter item to push: "))
+                push(stk, item)
+                print(f"Pushed {item} to stack.")
+            elif ch == 2:
+                item = pop(stk)
+                if item == 'Underflow':
+                    print("Stack is empty, cannot pop.")
+                else:
+                    print("Popped item is", item)
+            elif ch == 3:
+                item = peek(stk)
+                if item == "Underflow":
+                    print("Stack is empty.")
+                else:
+                    print("Topmost item is", item)
+            elif ch == 4:
+                display(stk)
+            elif ch == 5:
+                print("Exiting the program.")
+                break
+            else:
+                print("Invalid choice. Please enter a number between 1 and 5.")
+        except ValueError:
+            print("Invalid input. Please enter an integer.")
+
+if __name__ == "__main__":
+    main()

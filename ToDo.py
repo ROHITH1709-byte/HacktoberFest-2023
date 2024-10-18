@@ -24,22 +24,24 @@ root.title("To-Do List")
 
 # Entry for adding tasks
 entry = tk.Entry(root, width=40)
-entry.pack()
+entry.pack(pady=10)
 
 # Buttons for adding, marking as completed, and removing tasks
 add_button = tk.Button(root, text="Add Task", command=add_task)
 mark_button = tk.Button(root, text="Mark Completed", command=mark_completed)
 remove_button = tk.Button(root, text="Remove Task", command=remove_task)
 
-add_button.pack()
-mark_button.pack()
-remove_button.pack()
+add_button.pack(pady=5)
+mark_button.pack(pady=5)
+remove_button.pack(pady=5)
 
 # Lists for displaying tasks and completed tasks
-listbox = tk.Listbox(root, selectmode=tk.SINGLE, height=10, width=40)
-completed_listbox = tk.Listbox(root, selectmode=tk.SINGLE, height=10, width=40)
+listbox = tk.Listbox(root, selectmode=tk.SINGLE, height=10, width=50)
+completed_listbox = tk.Listbox(root, selectmode=tk.SINGLE, height=10, width=50)
 
-listbox.pack()
-completed_listbox.pack()
+listbox.pack(pady=10)
+completed_listbox.pack(pady=10)
 
+# Run the application
 root.mainloop()
+

@@ -1,19 +1,19 @@
-/*Program to determine even or odd*/
+/* Program to determine even or odd */
 
 #include <stdio.h>
 
 int main(void) {
+    int n; // declaring the required variable
 
-  int n; // declaring the required variables
+    printf("Enter an integer: ");  // prompt user for input
+    scanf("%d", &n);  // store the user input in a variable
 
-  printf("enter an integer:\n");  // taking input from the user
-  scanf("%d",&n);  // storing the user input in a variable
-  if(n%2==0) {  // checking wether the entered number gives 0 remainder when it is divided with 2
-    printf("%d is an even number!\n",n);
-  }
-  else{
-      printf("%d is an odd number!\n",n);
-   }
-   
-  return 0; // end of main
+    // Check whether the entered number is even or odd
+    if (n % 2 == 0) {
+        printf("%d is an even number!\n", n);
+    } else {
+        printf("%d is an odd number!\n", n);
+    }
+
+    return 0; // end of main
 }

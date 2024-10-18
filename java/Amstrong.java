@@ -1,29 +1,33 @@
-import java.util.*;
+import java.util.Scanner;
 
-public class Amstrong {
+public class Armstrong {
 
-    public static void main(String args[]) {
-
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int n1 = sc.nextInt();
-        int num = n1;
-        int n = 0;
+        System.out.print("Enter a number: ");
+        int inputNumber = sc.nextInt();
+        int tempNumber = inputNumber;
+        int numberOfDigits = 0;
 
-        while (num != 0) {
-            num /= 10;
-            ++n;
+        // Count the number of digits
+        while (tempNumber != 0) {
+            tempNumber /= 10;
+            ++numberOfDigits;
         }
 
-        num = n1;
+        tempNumber = inputNumber;
         int sum = 0;
-        while (num != 0) {
-            int d = num % 10;
-            sum += Math.pow(d, n);
-            num /= 10;
+
+        // Calculate the sum of the powers of its digits
+        while (tempNumber != 0) {
+            int digit = tempNumber % 10;
+            sum += Math.pow(digit, numberOfDigits);
+            tempNumber /= 10;
         }
-        System.out.print(n1 == sum);
 
-    }
-
-}
+        // Output the result
+        if (inputNumber == sum) {
+            System.out.println(inputNumber + " is an Armstrong number.");
+        } else {
+            Sy

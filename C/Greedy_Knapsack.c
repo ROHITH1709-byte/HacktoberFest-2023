@@ -11,7 +11,7 @@ struct Item {
 int compare(const void* a, const void* b) {
     double ratioA = ((struct Item*)a)->value / (double)((struct Item*)a)->weight;
     double ratioB = ((struct Item*)b)->value / (double)((struct Item*)b)->weight;
-    return (ratioB > ratioA) - (ratioB < ratioA);
+    return (ratioB < ratioA) - (ratioB > ratioA); // Fixed comparison logic
 }
 
 // Greedy Knapsack Algorithm
@@ -47,7 +47,7 @@ int main() {
     printf("Enter the knapsack capacity: ");
     scanf("%d", &capacity);
 
-    struct Item items[n];
+    struct Item *items = malloc(n * sizeof(struct Item)); // Dynamically allocate memory for items
 
     printf("Enter the weight and value of each item:\n");
     for (int i = 0; i < n; i++) {
@@ -56,5 +56,8 @@ int main() {
 
     knapsack(items, n, capacity);
 
+    free(items); // Free allocated memory
     return 0;
 }
+
+
